@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "492b4200772723eb330da94d4a64dc95",
+    "content-hash": "2b68b182aac29e5121cfd99cb743374d",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2377,16 +2377,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.4.17",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "76e013a98031356604e5a730c9eb22713dc4dda4"
+                "reference": "2474c5d4a5e3431fee2f6f0dddde9d34983d9ceb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/76e013a98031356604e5a730c9eb22713dc4dda4",
-                "reference": "76e013a98031356604e5a730c9eb22713dc4dda4",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/2474c5d4a5e3431fee2f6f0dddde9d34983d9ceb",
+                "reference": "2474c5d4a5e3431fee2f6f0dddde9d34983d9ceb",
                 "shasum": ""
             },
             "require": {
@@ -2405,7 +2405,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "4.1-dev"
                 },
                 "thanks": {
                     "name": "phpunit/phpunit",
@@ -2439,7 +2439,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T12:28:39+00:00"
+            "time": "2018-10-02T12:40:59+00:00"
         }
     ],
     "aliases": [],
@@ -2450,8 +2450,5 @@
     "platform": {
         "php": ">=5.5.9"
     },
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.6"
-    }
+    "platform-dev": []
 }

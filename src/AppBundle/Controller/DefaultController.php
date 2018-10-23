@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\StringDivider\DividerRequest;
+use AppBundle\StringDivider\StringDivider;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -13,9 +16,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $inputString = 'abcd';
+        $minimalSubstringLength = 2;
+
+        $dividerRequest = new DividerRequest($inputString, $minimalSubstringLength);
+        $stringDivider = new StringDivider();
+        $res = $stringDivider->divideIntoSubstrings($dividerRequest);
+        dump($res);
+
+        return new Response();
     }
 }

@@ -20,6 +20,7 @@ class StringDividerTest extends TestCase
         $this->assertEquals([
             ['a', 'b', 'c'],
             ['ab', 'c'],
+            ['a', 'bc'],
             ['abc']
         ], $substringCollection);
     }

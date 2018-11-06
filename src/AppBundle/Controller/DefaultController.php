@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\DividerRequestFormType;
 use AppBundle\StringDivider\DividerRequest;
 use AppBundle\StringDivider\StringDivider;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,14 +17,20 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $inputString = 'abcd';
-        $minimalSubstringLength = 2;
+        $dividerRequest = new DividerRequest('', 1);
 
-        $dividerRequest = new DividerRequest($inputString, $minimalSubstringLength);
-        $stringDivider = new StringDivider();
-        $res = $stringDivider->divideIntoSubstrings($dividerRequest);
-        dump($res);
+        $form = $this->createForm(DividerRequestFormType::class, $dividerRequest);
+        $substringCollection = null;
 
-        return new Response();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $stringDivider = new StringDivider();
+            $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
+        }
+
+        return $this->render('default/index.html.twig', [
+            'form' => $form->createView(),
+            'substringCollection' => $substringCollection
+        ]);
     }
 }

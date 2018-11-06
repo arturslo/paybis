@@ -2,6 +2,8 @@
 
 namespace AppBundle\StringDivider;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class DividerRequest
 {
     /**
@@ -10,6 +12,7 @@ class DividerRequest
     private $inputString;
     /**
      * @var int minaimal length of substring
+     * @Assert\GreaterThan(0)
      */
     private $minimalSubstringLength;
 
@@ -38,6 +41,22 @@ class DividerRequest
     public function getMinimalSubstringLength(): int
     {
         return $this->minimalSubstringLength;
+    }
+
+    /**
+     * @param string $inputString
+     */
+    public function setInputString(?string $inputString): void
+    {
+        $this->inputString = $inputString;
+    }
+
+    /**
+     * @param int $minimalSubstringLength
+     */
+    public function setMinimalSubstringLength(?int $minimalSubstringLength): void
+    {
+        $this->minimalSubstringLength = $minimalSubstringLength;
     }
 
 }

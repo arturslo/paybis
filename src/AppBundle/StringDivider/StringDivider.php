@@ -10,6 +10,8 @@ class StringDivider
      */
     public function divideIntoSubstrings($dividerRequest)
     {
+        $this->validate($dividerRequest);
+
         $stringLength = strlen($dividerRequest->getInputString());
         $maxArrayElementCount = intdiv($stringLength, $dividerRequest->getMinimalSubstringLength());
 
@@ -28,6 +30,13 @@ class StringDivider
         }
 
         return $substringCollection;
+    }
+
+    public function validate(DividerRequest $dividerRequest)
+    {
+        if ($dividerRequest->getMinimalSubstringLength() <= 0) {
+            throw new \InvalidArgumentException('minimal substring length must be larger than 0');
+        }
     }
 
 }

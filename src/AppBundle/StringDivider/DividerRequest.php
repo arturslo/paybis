@@ -30,7 +30,7 @@ class DividerRequest
     /**
      * @return string
      */
-    public function getInputString(): string
+    public function getInputString(): ?string
     {
         return $this->inputString;
     }
@@ -38,7 +38,7 @@ class DividerRequest
     /**
      * @return int
      */
-    public function getMinimalSubstringLength(): int
+    public function getMinimalSubstringLength(): ?int
     {
         return $this->minimalSubstringLength;
     }

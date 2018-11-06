@@ -13,6 +13,15 @@ class StringDivider
         $this->validate($dividerRequest);
 
         $stringLength = strlen($dividerRequest->getInputString());
+
+        if ($stringLength === 0) {
+            return [];
+        }
+
+        if ($dividerRequest->getMinimalSubstringLength() > $stringLength) {
+            return [];
+        }
+
         $maxArrayElementCount = intdiv($stringLength, $dividerRequest->getMinimalSubstringLength());
 
         $lock = new SubstringLengthGenerator($maxArrayElementCount, $stringLength);

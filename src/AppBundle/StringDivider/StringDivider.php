@@ -6,28 +6,28 @@ class StringDivider
 {
     /**
      * @param DividerRequest $dividerRequest
-     * @return array
+     * @return array[][]
      */
     public function divideIntoSubstrings($dividerRequest)
     {
         $stringLength = strlen($dividerRequest->getInputString());
+        $maxArrayElementCount = intdiv($stringLength, $dividerRequest->getMinimalSubstringLength());
+
+        $lock = new SubstringLengthGenerator($maxArrayElementCount, $stringLength);
+        $substringLengthCollection = $lock->getSubstringLengthCollection();
+
         $substringCollection = [];
-
-        for ($substringLength = $dividerRequest->getMinimalSubstringLength(); $substringLength <= $stringLength; $substringLength++) {
-            $substringResult = [];
-            for ($startIndex = 0; $startIndex < $stringLength; $startIndex += $substringLength) {
-                $substring = substr($dividerRequest->getInputString(), $startIndex, $substringLength);
-
-                if (strlen($substring) < $dividerRequest->getMinimalSubstringLength()) {
-                    unset($substringResult);
-                    continue 2;
-                }
-
-                $substringResult[] = substr($dividerRequest->getInputString(), $startIndex, $substringLength);
+        foreach ($substringLengthCollection as $substringLengthArray) {
+            $substringArray = [];
+            $startIndex = 0;
+            foreach ($substringLengthArray as $substringLength) {
+                $substringArray[] = substr($dividerRequest->getInputString(), $startIndex, $substringLength);
+                $startIndex += $substringLength;
             }
-            $substringCollection[] = $substringResult;
+            $substringCollection[] = $substringArray;
         }
 
         return $substringCollection;
     }
+
 }

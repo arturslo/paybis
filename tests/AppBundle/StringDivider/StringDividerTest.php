@@ -87,4 +87,16 @@ class StringDividerTest extends TestCase
             ['xyz']
         ], $substringCollection);
     }
+
+    public function test_4_element_string_min_substring_2()
+    {
+        $dividerRequest = new DividerRequest('abcd', 2);
+        $stringDivider = new StringDivider();
+        $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
+
+        $this->assertEquals([
+            ['ab', 'cd'],
+            ['abcd']
+        ], $substringCollection);
+    }
 }

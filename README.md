@@ -1,4 +1,8 @@
-test
-====
+string divider
+==============
 
-A Symfony project created on October 23, 2018, 6:23 pm.
+setup
+=====
+composer install
+
+start local server: php bin/console server:run

@@ -8,23 +8,25 @@ class SubstringLengthGenerator
     private $currentCombination = [];
     private $combinationCollection = [];
     private $maxArrayElementCount;
-    private $minNumber = 0;
+    private $zeroNumber = 0;
+    private $minNumber;
     private $maxNumber;
     private $currentLevel;
     private $currentNumber;
     private $lastIndex;
     private $substringLengthCollection = [];
 
-    public function __construct(int $maxArrayElementCount, int $maxNumber)
+    public function __construct(int $maxArrayElementCount, int $maxNumber, int $minNumber)
     {
         $this->maxArrayElementCount = $maxArrayElementCount;
         $this->maxNumber = $maxNumber;
+        $this->minNumber = $minNumber;
 
         $this->lastIndex = $this->maxArrayElementCount - 1;
-        $this->currentNumber = $this->minNumber;
-        $this->currentLevel = $this->minNumber;
+        $this->currentNumber = $this->zeroNumber;
+        $this->currentLevel = $this->zeroNumber;
         for ($index = 0; $index < $this->maxArrayElementCount; $index++) {
-            $this->currentCombination[$index] = $this->minNumber;
+            $this->currentCombination[$index] = $this->zeroNumber;
         }
         $this->combinationCollection[] = $this->currentCombination;
 
@@ -33,10 +35,14 @@ class SubstringLengthGenerator
         $resultArray1 = [];
         foreach ($this->combinationCollection as $row) {
             $rowSum = 0;
+            $containsValidNumbers = true;
             foreach ($row as $col) {
                 $rowSum += $col;
+                if ($col < $this->minNumber && $col !== 0) {
+                    $containsValidNumbers = false;
+                }
             }
-            if ($rowSum === $this->maxNumber) {
+            if ($rowSum === $this->maxNumber && $containsValidNumbers === true) {
                 $resultArray1[] = $row;
             }
         }
@@ -76,9 +82,9 @@ class SubstringLengthGenerator
             if ($index === 0) {
                 continue;
             }
-            $this->currentCombination[$index] = $this->minNumber;
+            $this->currentCombination[$index] = $this->zeroNumber;
         }
-        $this->currentNumber = $this->minNumber + 1;
+        $this->currentNumber = $this->zeroNumber + 1;
         $this->combinationCollection[] = $this->currentCombination;
     }
 

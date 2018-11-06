@@ -24,7 +24,7 @@ class StringDivider
 
         $maxArrayElementCount = intdiv($stringLength, $dividerRequest->getMinimalSubstringLength());
 
-        $lock = new SubstringLengthGenerator($maxArrayElementCount, $stringLength);
+        $lock = new SubstringLengthGenerator($maxArrayElementCount, $stringLength, $dividerRequest->getMinimalSubstringLength());
         $substringLengthCollection = $lock->getSubstringLengthCollection();
 
         $substringCollection = [];

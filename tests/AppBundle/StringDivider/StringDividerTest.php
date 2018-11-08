@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace AppBundle\StringDivider;
 
 
@@ -100,3 +100,4 @@ class StringDividerTest extends TestCase
         ], $substringCollection);
     }
 }
+*/

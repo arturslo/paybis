@@ -1,5 +1,5 @@
 <?php
-/*
+
 namespace AppBundle\StringDivider;
 
 
@@ -8,10 +8,15 @@ use PHPUnit\Framework\TestCase;
 class StringDividerTest extends TestCase
 {
 
+    public function getStringDivider()
+    {
+        return new StringDivider(new ProductGenerator(), new ProductCollectionFilter());
+    }
+
     public function test_divide_into_substrings()
     {
         $dividerRequest = new DividerRequest('abc', 1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([
@@ -26,7 +31,7 @@ class StringDividerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $dividerRequest = new DividerRequest('abc', 0);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $stringDivider->divideIntoSubstrings($dividerRequest);
     }
 
@@ -34,14 +39,14 @@ class StringDividerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $dividerRequest = new DividerRequest('abc', -1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $stringDivider->divideIntoSubstrings($dividerRequest);
     }
 
     public function test_empty_string_return_empty_array()
     {
         $dividerRequest = new DividerRequest('', 1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([], $substringCollection);
@@ -50,7 +55,7 @@ class StringDividerTest extends TestCase
     public function test_one_element_string_with_minimal_substring_1()
     {
         $dividerRequest = new DividerRequest('a', 1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([['a']], $substringCollection);
@@ -59,7 +64,7 @@ class StringDividerTest extends TestCase
     public function test_2_element_string_min_divider_1()
     {
         $dividerRequest = new DividerRequest('ab', 1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([['a', 'b'], ['ab']], $substringCollection);
@@ -68,7 +73,7 @@ class StringDividerTest extends TestCase
     public function test_min_substring_larger_than_string_element_count_returns_empty_array()
     {
         $dividerRequest = new DividerRequest('ab', 6);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([], $substringCollection);
@@ -77,7 +82,7 @@ class StringDividerTest extends TestCase
     public function test_divide_into_substrings_diffrent_chars()
     {
         $dividerRequest = new DividerRequest('xyz', 1);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([
@@ -91,7 +96,7 @@ class StringDividerTest extends TestCase
     public function test_4_element_string_min_substring_2()
     {
         $dividerRequest = new DividerRequest('abcd', 2);
-        $stringDivider = new StringDivider();
+        $stringDivider = $this->getStringDivider();
         $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
 
         $this->assertEquals([
@@ -100,4 +105,3 @@ class StringDividerTest extends TestCase
         ], $substringCollection);
     }
 }
-*/

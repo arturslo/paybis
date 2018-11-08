@@ -9,9 +9,68 @@ class StringDivider
      */
     private $productGenerator;
 
-    public function __construct(ProductGenerator $productGenerator)
+    /**
+     * @var ProductCollectionFilter
+     */
+    private $productCollectionFilter;
+
+    /**
+     * StringDivider constructor.
+     * @param ProductGenerator $productGenerator
+     * @param ProductCollectionFilter $productCollectionFilter
+     */
+    public function __construct(ProductGenerator $productGenerator, ProductCollectionFilter $productCollectionFilter)
     {
         $this->productGenerator = $productGenerator;
+        $this->productCollectionFilter = $productCollectionFilter;
+    }
+
+    /**
+     * @param int $minDivider
+     * @param int $maxDivider
+     * @return array
+     */
+    private function getPossibleDividers(int $minDivider, int $maxDivider)
+    {
+        $dividers = [];
+        for ($divider = $minDivider; $divider <= $maxDivider; $divider++) {
+            $dividers[] = $divider;
+        }
+
+        return $dividers;
+    }
+
+    /**
+     * @param array $dividers
+     * @return SetCollection[]
+     */
+    private function getDividerSetCollections(array $dividers)
+    {
+        $setCollections = [];
+        for ($setCount = count($dividers); $setCount >= 1; $setCount--) {
+            $setArray = [];
+            for ($step = 1; $step <= $setCount; $step++) {
+                $setArray[] = new Set($dividers);
+            }
+            $setCollections[] = new SetCollection($setArray);
+        }
+
+        return $setCollections;
+    }
+
+    /**
+     * @param SetCollection[]
+     * @return ProductCollection
+     */
+    private function getProductCollection(array $setCollections)
+    {
+        $productsArray = [];
+        foreach ($setCollections as $setCollection) {
+            $this->productGenerator->loadSetCollection($setCollection);
+            $productsArray[] = $this->productGenerator->getProduct();
+        }
+
+        return new ProductCollection($productsArray);
     }
 
     /**
@@ -32,10 +91,10 @@ class StringDivider
             return [];
         }
 
-        $maxArrayElementCount = intdiv($stringLength, $dividerRequest->getMinimalSubstringLength());
-
-        $lock = new SubstringLengthGenerator($maxArrayElementCount, $stringLength, $dividerRequest->getMinimalSubstringLength());
-        $substringLengthCollection = $lock->getSubstringLengthCollection();
+        $dividers = $this->getPossibleDividers($dividerRequest->getMinimalSubstringLength(), $stringLength);
+        $setCollections = $this->getDividerSetCollections($dividers);
+        $productCollection = $this->getProductCollection($setCollections);
+        $substringLengthCollection = $this->productCollectionFilter->filter($productCollection, $stringLength);
 
         $substringCollection = [];
         foreach ($substringLengthCollection as $substringLengthArray) {

@@ -7,7 +7,6 @@ use AppBundle\StringDivider\DividerRequest;
 use AppBundle\StringDivider\StringDivider;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -15,7 +14,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, StringDivider $stringDivider)
     {
         $dividerRequest = new DividerRequest('', 1);
 
@@ -24,7 +23,6 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $stringDivider = new StringDivider();
             $substringCollection = $stringDivider->divideIntoSubstrings($dividerRequest);
         }
 

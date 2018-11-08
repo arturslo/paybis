@@ -61,4 +61,22 @@ class ProductGeneratorTest extends TestCase
             [2, 2]
         ]), $product);
     }
+
+    public function test_product_result_single_set()
+    {
+        $setArray = [];
+        $setArray[] = new Set([1, 2, 3]);
+
+        $setCollection = new SetCollection($setArray);
+
+        $productGenerator = new ProductGenerator();
+        $productGenerator->loadSetCollection($setCollection);
+        $product = $productGenerator->getProduct();
+
+        $this->assertEquals(new Product([
+            [1],
+            [2],
+            [3]
+        ]), $product);
+    }
 }

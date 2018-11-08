@@ -40,7 +40,7 @@ class ProductGenerator
     {
         $this->setCollection = $setCollection;
         $this->lastSetIndex = count($setCollection) - 1;
-        $this->setSelectorIndex1 = $this->lastSetIndex - 1;
+        $this->setSelectorIndex1 = $this->lastSetIndex;
         $this->setSelectorIndex2 = $this->lastSetIndex;
         $this->firstIteration = true;
     }

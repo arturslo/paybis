@@ -27,9 +27,16 @@ class ProductGenerator
 
     /**
      * ProductGenerator constructor.
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
      * @param SetCollection $setCollection
      */
-    public function __construct(SetCollection $setCollection)
+    public function loadSetCollection(SetCollection $setCollection)
     {
         $this->setCollection = $setCollection;
         $this->lastSetIndex = count($setCollection) - 1;

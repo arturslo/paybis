@@ -30,7 +30,8 @@ class ProductGeneratorTest extends TestCase
 
         $setCollection = new SetCollection($setArray);
 
-        $productGenerator = new ProductGenerator($setCollection);
+        $productGenerator = new ProductGenerator();
+        $productGenerator->loadSetCollection($setCollection);
         $product = $productGenerator->getProduct();
 
         $this->assertEquals(new Product([
@@ -49,7 +50,8 @@ class ProductGeneratorTest extends TestCase
     {
         $setCollection = $this->getSetCollection(1, 2);
 
-        $productGenerator = new ProductGenerator($setCollection);
+        $productGenerator = new ProductGenerator();
+        $productGenerator->loadSetCollection($setCollection);
         $product = $productGenerator->getProduct();
 
         $this->assertEquals(new Product([

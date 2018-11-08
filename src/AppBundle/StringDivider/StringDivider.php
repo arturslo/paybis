@@ -5,6 +5,16 @@ namespace AppBundle\StringDivider;
 class StringDivider
 {
     /**
+     * @var ProductGenerator
+     */
+    private $productGenerator;
+
+    public function __construct(ProductGenerator $productGenerator)
+    {
+        $this->productGenerator = $productGenerator;
+    }
+
+    /**
      * @param DividerRequest $dividerRequest
      * @return array[][]
      */
